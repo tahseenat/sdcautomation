@@ -34,15 +34,16 @@ time.sleep(long_wait)
 
 elem = driver.find_element_by_tag_name("body")
 
-no_of_pagedowns = 20
+no_of_pagedowns = 100
 
 while no_of_pagedowns:
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(1)
+    elem.send_keys(Keys.PAGE_DOWN)
+    # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(2)
     no_of_pagedowns -= 1
 
 # post_elems = driver.find_elements_by_class_name("member-img")
-
+time.sleep(10)
 page_source = driver.page_source
 
 from bs4 import BeautifulSoup
@@ -50,7 +51,11 @@ from bs4 import BeautifulSoup
 soup = BeautifulSoup(page_source, 'lxml')
 ids = []
 mydivs = soup.findAll('div', class_="member-img", id=True)
+# temp = [x for x in soup.find_all("div", attrs={"class": "member-img"})]
+
 for div in mydivs:
     ids.append(div['id'])
+
 print(ids)
 print(len(ids))
+# (//*[@class='member-img'])[]
