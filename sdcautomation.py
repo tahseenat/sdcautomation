@@ -55,32 +55,43 @@ def mail():
 
 
 if __name__ == "__main__":
-    # credentials
-    username = "IUNCTUS"
-    password = "OURPROFILE"
+# credentials
+username = "IUNCTUS"
+password = "OURPROFILE"
 
-    # content to send
-    message = "w"
-    name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
-    no_of_contacts = 900
+# content to send
+message = "w"
+name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
+no_of_contacts = 900
 
-    # waits in sec
-    soft_wait = 2
-    long_wait = 4
+# waits in sec
+soft_wait = 2
+long_wait = 4
 
-    driver = webdriver.Chrome()
-    website_URL = "https://www.sdc.com/"
-    driver.get(website_URL)
+driver = webdriver.Chrome()
+website_URL = "https://www.sdc.com/"
+driver.get(website_URL)
 
+time.sleep(long_wait)
+login()
+
+file_name = 'Database.csv'
+csvFile = open(file_name, 'r', newline='')
+csvWriter = csv.writer(csvFile)
+
+# reading file in pandas DataFrame
+user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
+print(user_id.head(5))
+
+#open tab
+driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 't')
+# You can use (Keys.COMMAND + 't') on MAC
+
+for index in range(1, len(user_id)):
+
+    id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
+    driver.get(id_url)
     time.sleep(long_wait)
-    login()
-
-    file_name = 'Database.csv'
-    csvFile = open(file_name, 'r', newline='')
-    csvWriter = csv.writer(csvFile)
-
-    # reading file in pandas DataFrame
-    user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
 
 
     # go to contacts
