@@ -34,7 +34,7 @@ time.sleep(long_wait)
 
 elem = driver.find_element_by_tag_name("body")
 
-no_of_pagedowns = 100
+no_of_pagedowns = 20
 
 while no_of_pagedowns:
     elem.send_keys(Keys.PAGE_DOWN)
@@ -59,3 +59,27 @@ for div in mydivs:
 print(ids)
 print(len(ids))
 # (//*[@class='member-img'])[]
+file_name='Database.csv'
+# try to open file to check existence
+try:
+    f = open(file_name)
+    f.close()
+except:
+    csvFile = open(file_name, 'a', newline='')
+    csvWriter = csv.writer(csvFile)
+    csvWriter.writerow(['User_id'])
+
+# open file for appending
+csvFile = open(file_name, 'a', newline='')
+csvWriter = csv.writer(csvFile)
+
+#reading file in pandas dataframe
+user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
+
+#storing data in list
+user_array = [x for x in user_id["User_id"]]
+
+#appending new user ids
+for i in range(len(ids)):
+    if ids[i] not in user_array:
+        csvWriter.writerow([ids[i]])
