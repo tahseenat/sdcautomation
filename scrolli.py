@@ -1,3 +1,5 @@
+import csv
+import pandas as pd
 import time
 
 from selenium import webdriver
@@ -34,7 +36,7 @@ time.sleep(long_wait)
 
 elem = driver.find_element_by_tag_name("body")
 
-no_of_pagedowns = 20
+no_of_pagedowns = 100
 
 while no_of_pagedowns:
     elem.send_keys(Keys.PAGE_DOWN)
@@ -56,10 +58,11 @@ mydivs = soup.findAll('div', class_="member-img", id=True)
 for div in mydivs:
     ids.append(div['id'])
 
-print(ids)
+# print(ids)
 print(len(ids))
 # (//*[@class='member-img'])[]
-file_name='Database.csv'
+
+file_name = 'Database.csv'
 # try to open file to check existence
 try:
     f = open(file_name)
@@ -73,13 +76,13 @@ except:
 csvFile = open(file_name, 'a', newline='')
 csvWriter = csv.writer(csvFile)
 
-#reading file in pandas dataframe
+# reading file in pandas DataFrame
 user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
 
-#storing data in list
+# storing data in list
 user_array = [x for x in user_id["User_id"]]
 
-#appending new user ids
+# appending new user ids
 for i in range(len(ids)):
     if ids[i] not in user_array:
         csvWriter.writerow([ids[i]])
