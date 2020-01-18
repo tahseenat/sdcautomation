@@ -46,18 +46,10 @@ while no_of_pagedowns:
 page_source = driver.page_source
 
 from bs4 import BeautifulSoup
-
 soup = BeautifulSoup(page_source, 'lxml')
-temp = [x for x in soup.find_all("div", attrs={"class": "member-img"})]
-
-member_id = []
-
-for i in temp:
-    y = str(i)
-    y = y[28:]
-    print(y[28:33])
-
-import csv
-csvFile = open("extracted_data.csv", 'w', newline='')
-csvWriter = csv.writer(csvFile)
-csvWriter.writerow(["UPC", "URL", "PRICE", "ASIN", "RANK"])
+ids=[]
+mydivs = soup.findAll('div',class_="member-img",id=True)
+for div in mydivs:
+        ids.append(div['id'])
+print(ids)
+print(len(ids))
