@@ -34,14 +34,6 @@ if __name__ == "__main__":
     driver.get(website_URL)
 
     time.sleep(long_wait)
-    driver.find_element(By.XPATH, '//*[@id="btn_login" or onclick="OnLoginBtnClick();"]').click()
-
-    # enter credentials
-    time.sleep(soft_wait)
-    driver.find_element(By.ID, 'accountID').send_keys(username)
-    driver.find_element(By.ID, 'password').send_keys(password)
-    driver.find_element(By.XPATH, '//*[@id="header_btn_login_form"]').click()
-    time.sleep(long_wait)
 
     # go to contacts
     time.sleep(long_wait)
@@ -80,6 +72,16 @@ if __name__ == "__main__":
 
         if contact % 10 == 0:
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+
+def login():
+    driver.find_element(By.XPATH, '//*[@id="btn_login" or onclick="OnLoginBtnClick();"]').click()
+    # enter credentials
+    time.sleep(soft_wait)
+    driver.find_element(By.ID, 'accountID').send_keys(username)
+    driver.find_element(By.ID, 'password').send_keys(password)
+    driver.find_element(By.XPATH, '//*[@id="header_btn_login_form"]').click()
+    time.sleep(long_wait)
 
 
 def invite():

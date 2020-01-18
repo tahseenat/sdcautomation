@@ -34,7 +34,7 @@ time.sleep(long_wait)
 
 elem = driver.find_element_by_tag_name("body")
 
-no_of_pagedowns = 2
+no_of_pagedowns = 20
 
 while no_of_pagedowns:
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -46,10 +46,11 @@ while no_of_pagedowns:
 page_source = driver.page_source
 
 from bs4 import BeautifulSoup
+
 soup = BeautifulSoup(page_source, 'lxml')
-ids=[]
-mydivs = soup.findAll('div',class_="member-img",id=True)
+ids = []
+mydivs = soup.findAll('div', class_="member-img", id=True)
 for div in mydivs:
-        ids.append(div['id'])
+    ids.append(div['id'])
 print(ids)
 print(len(ids))
