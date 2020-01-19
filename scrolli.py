@@ -15,7 +15,7 @@ password = "OURPROFILE"
 # content to send
 message = "w"
 name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
-no_of_contacts = 3000
+no_of_contacts = 900
 
 # waits in sec
 soft_wait = 2
