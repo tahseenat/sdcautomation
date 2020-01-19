@@ -58,23 +58,17 @@ if __name__ == "__main__":
     # credentials
     username = "IUNCTUS"
     password = "OURPROFILE"
+    website_URL = "https://www.sdc.com/"
 
     # content to send
     message = "w"
     name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
-    no_of_contacts = 900
 
     # waits in sec
     soft_wait = 2
     long_wait = 4
 
-    driver = webdriver.Chrome()
-    website_URL = "https://www.sdc.com/"
-    driver.get(website_URL)
-
-    time.sleep(long_wait)
-    login()
-
+    # load database
     file_name = 'Database.csv'
     csvFile = open(file_name, 'r', newline='')
     csvWriter = csv.writer(csvFile)
@@ -83,29 +77,20 @@ if __name__ == "__main__":
     user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
     print(user_id.head(5))
 
-    #open tab
+    driver = webdriver.Chrome()
+    driver.get(website_URL)
+    time.sleep(long_wait)
+
+    # login
+    login()
+
+    # open tab
     driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 't')
     # You can use (Keys.COMMAND + 't') on MAC
 
     for index in range(1, len(user_id)):
-
         id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
         driver.get(id_url)
         time.sleep(long_wait)
-
-
-        # go to contacts
-        # time.sleep(long_wait)
-        # driver.find_element(By.XPATH, "//*[contains(text(), 'Explore')]").click()
-        # time.sleep(soft_wait)
-        # driver.find_element(By.XPATH, "//*[contains(text(), 'Connect')]").click()
-        # time.sleep(soft_wait)
-        # driver.find_element(By.XPATH, "//*[contains(text(), 'Contacts')]").click()
-        # time.sleep(soft_wait)
-        # driver.find_element(By.XPATH, '//*[@id="app-bar"]/div[2]/div/button').click()
-
-        # click on the likes given manually
-        # time.sleep(long_wait + soft_wait)
-        # element = driver.find_element(By.XPATH, "//*[contains(text(), 'Likes given')]")
-        # driver.execute_script("arguments[0].click();", element)
-
+        # invite()
+        # mail()
