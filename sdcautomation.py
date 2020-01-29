@@ -1,18 +1,10 @@
-import pytest
 import time
-import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import pandas as pd
 import csv
-from selenium.webdriver.chrome.options import Options
-from directkeys import PressKey, ReleaseKey, W, A, S, D
 import autoit
+import keyboard
 
 
 def login():
@@ -28,30 +20,36 @@ def login():
 def invite():
     driver.find_element(By.XPATH, "//*[contains(text(), 'Invite')]").click()
     time.sleep(soft_wait)
-    driver.find_element(By.XPATH, name_of_party).click()
+    party_xpath = "//*[contains(text(), '{}')]".format(name_of_party)
+    driver.find_element(By.XPATH, party_xpath).click()
+    # driver.find_element(By.XPATH, "//*[contains(text(), 'Saint Valentine Party | Friday, February 14, 2020')]").
+    # click()
     time.sleep(soft_wait)
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Cancel')]").click()
 
 
 def mail():
     time.sleep(soft_wait)
     driver.find_element(By.XPATH, "//*[contains(text(), 'Email')]").click()
-    time.sleep(soft_wait)
+    time.sleep(long_wait)
     driver.find_element(By.XPATH, '//*[@class="ql-editor ql-blank"]').click()
-
-    # use direct keys module to type the content
     time.sleep(soft_wait)
-    PressKey(W)
-
-    # click on EMail
+    keyboard.write(message)
     time.sleep(soft_wait)
-    driver.find_element(By.XPATH, "//*[contains(text(), 'Email')]").click()
+
     # click on Add photo
     time.sleep(soft_wait)
     driver.find_element(By.XPATH, "//*[contains(text(), 'Add Photo')]").click()
+    time.sleep(soft_wait)
 
     # enter the location of the image file you want send in next line
     autoit.control_set_text("Open", "Edit1", r"D:\ME\c dfrive\New folder\557421.jpg")
+
     autoit.control_send("Open", "Edit1", "{ENTER}")
+    time.sleep(soft_wait)
+
+    driver.find_element(By.XPATH, "//*[contains(text(), 'Send')]").click()
+    time.sleep(long_wait + soft_wait + long_wait)
 
 
 if __name__ == "__main__":
@@ -61,8 +59,16 @@ if __name__ == "__main__":
     website_URL = "https://www.sdc.com/"
 
     # content to send
-    message = "w"
+
+    message = "Hello, sexies!!! We just sent you the invitation to the luxury erotic weekend Barcelona S.Fantasy " \
+              "which will take place on the last weekend of June! :) We'd love you to attend it and the location is a " \
+              "gorgeous 15 rooms villa just West of the city (if you'd like to be accommodated in the villa, " \
+              "let us know asap). The event is limited to people up to 50 years of age. \n For more info, " \
+              "copy or type this link into your browser: event.sexy \n or contact us by Whatsapp +1.516.577.0507. \n " \
+              "Kisses, Margarita and Luca 😘 "
+
     name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
+    # //*contains(text(), "Saint Valentine Party | Friday, February 14, 2020")
 
     # waits in sec
     soft_wait = 2
@@ -85,12 +91,13 @@ if __name__ == "__main__":
     login()
 
     # open tab
-    driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 't')
-    # You can use (Keys.COMMAND + 't') on MAC
+    driver.execute_script("window.open('');")
+    driver.switch_to.window(driver.window_handles[1])
 
-    for index in range(1, len(user_id)):
+    for index in range(len(user_id)):
         id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
+        print(id_url)
         driver.get(id_url)
         time.sleep(long_wait)
-        # invite()
-        # mail()
+        mail()
+        invite()

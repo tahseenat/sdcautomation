@@ -16,12 +16,11 @@ def navigate():
     time.sleep(soft_wait)
     driver.find_element(By.XPATH, "//*[contains(text(), 'Contacts')]").click()
     time.sleep(soft_wait)
-    driver.find_element(By.XPATH, '//*[@id="app-bar"]/div[2]/div/button').click()
+    driver.find_element(By.XPATH, """//*[@id="app-bar"]/div[2]/div/button""").click()
 
     # click on the likes given manually
     time.sleep(long_wait + soft_wait)
-    element = driver.find_element(By.XPATH, "//*[contains(text(), 'Likes given')]")
-    driver.execute_script("arguments[0].click();", element)
+
 
 
 def login():
@@ -42,11 +41,6 @@ if __name__ == "__main__":
     password = "OURPROFILE"
     website_URL = "https://www.sdc.com/"
 
-
-    # content to send
-    message = "w"
-    name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
-
     # waits in sec
     soft_wait = 2
     long_wait = 4
@@ -58,7 +52,7 @@ if __name__ == "__main__":
     # login
     login()
     # navigate()
-
+    time.sleep(10)
     elem = driver.find_element_by_tag_name("body")
 
     no_of_pagedowns = 10
@@ -68,7 +62,7 @@ if __name__ == "__main__":
         time.sleep(soft_wait)
         no_of_pagedowns -= 1
 
-    time.sleep(10)
+    time.sleep(long_wait)
 
     page_source = driver.page_source
 
@@ -114,3 +108,4 @@ if __name__ == "__main__":
             c += 1
     csvFile.close()
     print("New User appended:", c)
+    driver.close()
