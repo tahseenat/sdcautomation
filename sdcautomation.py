@@ -26,6 +26,7 @@ def invite():
     # click()
     time.sleep(soft_wait)
     driver.find_element(By.XPATH, "//*[contains(text(), 'Cancel')]").click()
+    time.sleep(soft_wait)
 
 
 def mail():
