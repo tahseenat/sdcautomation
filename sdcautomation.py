@@ -91,7 +91,7 @@ if __name__ == "__main__":
     start_sending_from_user = 0
     for index in range(start_sending_from_user, len(user_id)):
         # open tab
-        if user_id.at[index, 'Flag'] == 0:
+        if user_id.at[index, 'Flag'] == "Not Sent":
             driver.switch_to.window((driver.window_handles[0]))
             driver.execute_script("window.open('');")
             driver.switch_to.window(driver.window_handles[1])
@@ -104,6 +104,6 @@ if __name__ == "__main__":
             time.sleep(soft_wait)
             invite()
             driver.close()
-            user_id.at[index, 'Flag'] = 1
+            user_id.at[index, 'Flag'] = "Sent"
             user_id.to_csv(file_name, index=False)
     driver.close()
