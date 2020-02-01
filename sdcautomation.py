@@ -105,5 +105,5 @@ if __name__ == "__main__":
             invite()
             driver.close()
             user_id.at[index, 'Flag'] = 1
+            user_id.to_csv(file_name, index=False)
     driver.close()
-    user_id.to_csv(file_name, index=False)
