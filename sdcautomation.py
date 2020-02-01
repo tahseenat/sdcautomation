@@ -88,7 +88,8 @@ if __name__ == "__main__":
     # login
     login()
 
-    for index in range(len(user_id)):
+    start_sending_from_user = 0
+    for index in range(start_sending_from_user, len(user_id)):
         # open tab
         driver.switch_to.window((driver.window_handles[0]))
         driver.execute_script("window.open('');")
