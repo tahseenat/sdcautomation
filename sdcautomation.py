@@ -78,7 +78,7 @@ if __name__ == "__main__":
     csvWriter = csv.writer(csvFile)
 
     # reading file in pandas DataFrame
-    user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
+    user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 2))
     print(user_id.head(5))
 
     driver = webdriver.Chrome()
@@ -91,16 +91,19 @@ if __name__ == "__main__":
     start_sending_from_user = 0
     for index in range(start_sending_from_user, len(user_id)):
         # open tab
-        driver.switch_to.window((driver.window_handles[0]))
-        driver.execute_script("window.open('');")
-        driver.switch_to.window(driver.window_handles[1])
-        time.sleep(soft_wait)
-        id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
-        print("processing -> {} user".format(index))
-        driver.get(id_url)
-        time.sleep(long_wait)
-        mail()
-        time.sleep(soft_wait)
-        invite()
-        driver.close()
+        if user_id.at[index, 'Flag'] == 0:
+            driver.switch_to.window((driver.window_handles[0]))
+            driver.execute_script("window.open('');")
+            driver.switch_to.window(driver.window_handles[1])
+            time.sleep(soft_wait)
+            id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
+            print("processing -> {} user".format(index))
+            driver.get(id_url)
+            time.sleep(long_wait)
+            mail()
+            time.sleep(soft_wait)
+            invite()
+            driver.close()
+            user_id.at[index, 'Flag'] = 1
     driver.close()
+    user_id.to_csv(file_name, index=False)
