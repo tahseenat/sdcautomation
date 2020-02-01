@@ -55,7 +55,7 @@ if __name__ == "__main__":
     time.sleep(10)
     elem = driver.find_element_by_tag_name("body")
 
-    no_of_pagedowns = 10
+    no_of_pagedowns = 5
     while no_of_pagedowns:
         elem.send_keys(Keys.PAGE_DOWN)
         # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -86,9 +86,10 @@ if __name__ == "__main__":
         f = open(file_name)
         f.close()
     except:
-        csvFile = open(file_name, 'a', newline='')
+        csvFile = open(file_name, 'w', newline='')
         csvWriter = csv.writer(csvFile)
         csvWriter.writerow(['User_id'])
+        csvFile.close()
 
     # reading file in pandas dataframe
     user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 1))
