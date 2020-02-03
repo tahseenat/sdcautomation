@@ -52,23 +52,23 @@ def mail():
         time.sleep(soft_wait)
 
         driver.find_element(By.XPATH, "//*[contains(text(), 'Send')]").click()
-        time.sleep(long_wait + soft_wait + long_wait)
+        time.sleep(long_wait )
     except:
         pass
 
 
 if __name__ == "__main__":
-    # credentials
+    # enter credentials
     username = "IUNCTUS"
     password = "OURPROFILE"
     website_URL = "https://www.sdc.com/"
 
-    # content to send
+    # enter content to send
     message = "Hello, sexies!!!"
 
     name_of_party = "Saint Valentine Party | Friday, February 14, 2020"
 
-    # waits in sec
+    # specify waits in sec
     soft_wait = 2
     long_wait = 4
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
             driver.switch_to.window((driver.window_handles[0]))
             driver.execute_script("window.open('');")
             driver.switch_to.window(driver.window_handles[1])
-            time.sleep(soft_wait)
+            time.sleep(1)
             id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
             print("processing -> {} user".format(index))
             driver.get(id_url)
