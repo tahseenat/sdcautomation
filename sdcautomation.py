@@ -52,7 +52,7 @@ def mail():
         time.sleep(soft_wait)
 
         driver.find_element(By.XPATH, "//*[contains(text(), 'Send')]").click()
-        time.sleep(long_wait )
+        time.sleep(long_wait)
     except:
         pass
 
@@ -82,6 +82,9 @@ if __name__ == "__main__":
     print(user_id.head(5))
 
     driver = webdriver.Chrome()
+
+    driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
+
     driver.get(website_URL)
     time.sleep(long_wait)
 
