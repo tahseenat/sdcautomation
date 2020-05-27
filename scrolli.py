@@ -34,7 +34,7 @@ def login():
 
 
 if __name__ == "__main__":
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()
 
     driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     time.sleep(10)
     elem = driver.find_element_by_tag_name("body")
 
-    no_of_pagedowns = 5
+    no_of_pagedowns = 10
     while no_of_pagedowns:
         elem.send_keys(Keys.PAGE_DOWN)
         # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
