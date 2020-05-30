@@ -5,15 +5,16 @@ import pandas as pd
 import csv
 import autoit
 import keyboard
+from tqdm import tqdm
 
 
 def login():
     driver.find_element(By.XPATH, '//*[@id="btn_login" or onclick="OnLoginBtnClick();"]').click()
     # enter credentials
     time.sleep(soft_wait)
-    driver.find_element(By.ID, 'accountID').send_keys(username)
-    driver.find_element(By.ID, 'password').send_keys(password)
-    driver.find_element(By.XPATH, '//*[@id="header_btn_login_form"]').click()
+    driver.find_element(By.ID, 'LoginaccountID').send_keys(username)
+    driver.find_element(By.ID, 'Loginpassword').send_keys(password)
+    driver.find_element(By.XPATH, '//*[@id="login_btn_login_form"]').click()
     time.sleep(long_wait)
 
 
@@ -60,7 +61,7 @@ def mail():
 if __name__ == "__main__":
     # enter credentials
     username = "IUNCTUS"
-    password = "OURPROFILE"
+    password = "ourprofile"
     website_URL = "https://www.sdc.com/"
 
     # enter content to send
@@ -70,7 +71,7 @@ if __name__ == "__main__":
 
     # specify waits in sec
     soft_wait = 2
-    long_wait = 4
+    long_wait = 8
 
     # load database
     file_name = 'Database.csv'
@@ -79,9 +80,6 @@ if __name__ == "__main__":
 
     # reading file in pandas DataFrame
     user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 2))
-    print(user_id.head(5))
-
-    driver = webdriver.Chrome()
 
     driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
 
@@ -92,7 +90,7 @@ if __name__ == "__main__":
     login()
 
     start_sending_from_user = 0
-    for index in range(start_sending_from_user, len(user_id)):
+    for index in tqdm(range(start_sending_from_user, len(user_id))):
         # open tab
         if user_id.at[index, 'Flag'] == "Not Sent":
             driver.switch_to.window((driver.window_handles[0]))
@@ -100,7 +98,6 @@ if __name__ == "__main__":
             driver.switch_to.window(driver.window_handles[1])
             time.sleep(1)
             id_url = "https://www.sdc.com/react/#/profile?idUser={}".format(user_id.at[index, 'User_id'])
-            print("processing -> {} user".format(index))
             driver.get(id_url)
             time.sleep(long_wait)
             mail()

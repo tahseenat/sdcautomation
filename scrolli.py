@@ -27,20 +27,18 @@ def login():
     driver.find_element(By.XPATH, '//*[@id="btn_login" or onclick="OnLoginBtnClick();"]').click()
     # enter credentials
     time.sleep(soft_wait)
-    driver.find_element(By.ID, 'accountID').send_keys(username)
-    driver.find_element(By.ID, 'password').send_keys(password)
-    driver.find_element(By.XPATH, '//*[@id="header_btn_login_form"]').click()
+    driver.find_element(By.ID, 'LoginaccountID').send_keys(username)
+    driver.find_element(By.ID, 'Loginpassword').send_keys(password)
+    driver.find_element(By.XPATH, '//*[@id="login_btn_login_form"]').click()
     time.sleep(long_wait)
 
 
 if __name__ == "__main__":
-    # driver = webdriver.Chrome()
-
     driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
 
     # driver.manage().window().maximize()
     username = "IUNCTUS"
-    password = "OURPROFILE"
+    password = "ourprofile"
     website_URL = "https://www.sdc.com/"
 
     # waits in sec
