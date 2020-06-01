@@ -81,8 +81,8 @@ if __name__ == "__main__":
     # reading file in pandas DataFrame
     user_id = pd.read_csv(file_name, encoding="ISO-8859-1", usecols=range(0, 2))
 
-    driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
-
+    # driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
+    driver = webdriver.Chrome()
     driver.get(website_URL)
     time.sleep(long_wait)
 

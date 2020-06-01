@@ -34,8 +34,9 @@ def login():
 
 
 if __name__ == "__main__":
-    driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
 
+    # driver = webdriver.Chrome(executable_path='D:/Downloads/chromedriver_win32/chromedriver.exe')
+    driver = webdriver.Chrome()
     # driver.manage().window().maximize()
     username = "IUNCTUS"
     password = "ourprofile"
