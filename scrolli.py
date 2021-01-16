@@ -17,10 +17,8 @@ def navigate():
     driver.find_element(By.XPATH, "//*[contains(text(), 'Contacts')]").click()
     time.sleep(soft_wait)
     driver.find_element(By.XPATH, """//*[@id="app-bar"]/div[2]/div/button""").click()
-
     # click on the likes given manually
     time.sleep(long_wait + soft_wait)
-
 
 
 def login():
@@ -39,7 +37,7 @@ if __name__ == "__main__":
     driver = webdriver.Chrome()
     # driver.manage().window().maximize()
     username = "IUNCTUS"
-    password = "ourprofile"
+    password = "TahirDoesMagic2000"
     website_URL = "https://www.sdc.com/"
 
     # waits in sec
@@ -68,13 +66,24 @@ if __name__ == "__main__":
     page_source = driver.page_source
 
     soup = BeautifulSoup(page_source, 'lxml')
-    ids = []
-    mydivs = soup.findAll('div', class_="member-img", id=True)
-    # post_elems = driver.find_elements_by_class_name("member-img")
+    # mydivs = soup.findAll('div', class_="member-img", id=True)
+    # mydivs = soup.findAll('div', class_="cursor-pointer account-img", id=True)
+    # temp = driver.find_element_by_xpath("//*[@class='cursor-pointer account-img']")
+    # post_elems = driver.find_elements_by_class_name("cursor-pointer account-img")
     # temp = [x for x in soup.find_all("div", attrs={"class": "member-img"})]
+    # test = [r['id'] for r in soup.find_all(name="div", attrs={"id":True})]
 
-    for div in mydivs:
-        ids.append(div['id'])
+    test = driver.find_elements_by_xpath("//img[contains(@src, 'thumbnail')]")
+    # id = get_attribute("id")
+    # div_tags = soup.find_all('div')
+    ids = []
+    for i in range(len(test)):
+        ID = test[i].get_attribute("id")
+        if ID is not None:
+            ids.append(ID)
+
+    # for div in mydivs:
+    #     ids.append(div['id'])
 
     # print(ids)
     print("User Fetched:", len(ids))
