@@ -23,6 +23,15 @@ def navigate():
 
 def login():
     driver.find_element(By.XPATH, '//*[@id="btn_login" or onclick="OnLoginBtnClick();"]').click()
+
+    elem = driver.find_element_by_tag_name("body")
+
+    no_of_pagedowns = 1
+    while no_of_pagedowns:
+        elem.send_keys(Keys.PAGE_DOWN)
+        # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(soft_wait)
+        no_of_pagedowns -= 1
     # enter credentials
     time.sleep(soft_wait)
     driver.find_element(By.ID, 'LoginaccountID').send_keys(username)
